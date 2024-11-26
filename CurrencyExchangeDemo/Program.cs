@@ -1,7 +1,13 @@
+using CurrencyExchangeDemo.Services.Implementations;
+using CurrencyExchangeDemo.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Service Registration
+builder.Services.AddHttpClient<ICurrencyExchangeService, CurrencyExchangeService>();
 
 var app = builder.Build();
 
@@ -22,6 +28,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=CurrencyExchange}/{action=CurrencyExchange}");
 
 app.Run();

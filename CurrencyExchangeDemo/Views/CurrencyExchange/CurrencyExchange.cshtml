@@ -1,0 +1,34 @@
+﻿@model CurrencyExchangeViewModel
+
+<h2>Currency Exchange</h2>
+
+<form asp-action="CurrencyExchange" method="post">
+    <div>
+        <label for="Date">Date:</label>
+        <input asp-for="Date" type="date" />
+        <span asp-validation-for="Date"></span>
+    </div>
+    <div>
+        <label for="SourceCurrency">Source Currency:</label>
+        <input asp-for="SourceCurrencyName" />
+        <span asp-validation-for="SourceCurrencyName"></span>
+    </div>
+    <div>
+        <label for="SourceAmount">Source Amount:</label>
+        <input asp-for="SourceCurrencyAmount" type="number" step="0.01" />
+        <span asp-validation-for="SourceCurrencyAmount"></span>
+    </div>
+    <div>
+        <label for="TargetCurrency">Target Currency:</label>
+        <input asp-for="TargetCurrencyName" />
+        <span asp-validation-for="TargetCurrencyName"></span>
+    </div>
+    <button type="submit">Convert</button>
+</form>
+
+@if (Model.ConvertedAmount.HasValue)
+{
+    <h3>Conversion Result</h3>
+    <p>Exchange Rate: @Model.ExchangeRate</p>
+    <p>Converted Amount: @Model.ConvertedAmount</p>
+}
