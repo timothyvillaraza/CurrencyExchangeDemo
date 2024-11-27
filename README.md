@@ -5,7 +5,7 @@ This is a simple web application built using **ASP.NET Core MVC** and targeting 
 
 ## Live Application Demo
 
-You can access the deployed application at the following URL:  
+You can access the application deployed on Azure by following URL:  
 [Currency Exchange Demo](https://currencyexchangedemo.azurewebsites.net/)
 
 ---
