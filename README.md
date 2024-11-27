@@ -16,7 +16,7 @@ This application utilizes the following third-party API for fetching exchange ra
 [Currency Exchange API](https://github.com/fawazahmed0/exchange-api)
 
 ### **Important Note**
-The **Currency Exchange API** may throttle the frequency of currency fetches. If you encounter issues with fetching data, this could be due to rate limiting by the API provider.
+The first request to fetch exchange rates may take longer to complete. Subsequent requests are significantly faster. This behavior is expected and does not indicate an issue. 
 
 ---
 
