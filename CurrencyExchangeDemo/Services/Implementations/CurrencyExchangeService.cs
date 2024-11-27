@@ -17,9 +17,16 @@ namespace CurrencyExchangeDemo.Services.Implementations
 
         // TODO: Create service that fetches valid currency selections
 
-        public async Task<GetExchangeRateResponseModel> GetExchangeRateAsync(DateTime date, string sourceCurrencyName, string targetCurrencyName, decimal sourceCurrencyAmount)
+        public async Task<GetExchangeRateResponseModel> GetExchangeRateAsync(DateTime date, string sourceCurrencyName, string targetCurrencyName)
         {
-            // TODO: Validate Inputs at Service Level
+            if (sourceCurrencyName.Equals(targetCurrencyName))
+            {
+                return new GetExchangeRateResponseModel()
+                {
+                    SourceToTargetRate = 1.00m,
+                    TargetToSourceRate = 1.00m
+                };
+            }
 
             var apiResponse = await _httpClient.GetAsync($"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date.ToString("yyyy-MM-dd")}/v1/currencies/{sourceCurrencyName}.json");
 
@@ -44,8 +51,8 @@ namespace CurrencyExchangeDemo.Services.Implementations
 
             return new GetExchangeRateResponseModel()
             {
-                ExchangeRate = rates[targetCurrencyName],
-                ConvertedAmount = rates[targetCurrencyName] * sourceCurrencyAmount
+                SourceToTargetRate = rates[targetCurrencyName],
+                TargetToSourceRate = 1 / rates[targetCurrencyName]
             };
         }
     }

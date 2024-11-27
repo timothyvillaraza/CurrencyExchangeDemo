@@ -2,7 +2,7 @@
 {
     public class GetExchangeRateResponseModel
     {
-        public decimal ExchangeRate { get; set; }
-        public decimal ConvertedAmount { get; set; }
+        public decimal SourceToTargetRate { get; set; }
+        public decimal TargetToSourceRate { get; set; }
     }
 }

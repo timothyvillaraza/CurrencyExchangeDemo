@@ -22,13 +22,14 @@ namespace CurrencyExchangeDemo.Controllers
         {
             // TODO: API Call to get valid currency drop downs
 
-            // Starting form values
+            // Starting form values (NOTE: Converstion Rates are only fetched from the 3rd Party API after both currencies are set, not in the initial GET of the page)
             var model = new CurrencyExchangeViewModel
             {
                 SourceCurrencyName = "USD",
-                SourceCurrencyAmount = 0,
-                TargetCurrencyName = "EUR",
+                TargetCurrencyName = "USD",
                 Date = DateTime.Today,
+                SourceToTargetRate = 1.00m,
+                TargetToSourceRate = 1.00m
             };
 
             return View(model);
@@ -48,15 +49,39 @@ namespace CurrencyExchangeDemo.Controllers
             var getExchangeRateResponse = await _currencyExchangeService.GetExchangeRateAsync(
                 viewModel.Date,
                 viewModel.SourceCurrencyName,
-                viewModel.TargetCurrencyName,
-                viewModel.SourceCurrencyAmount
+                viewModel.TargetCurrencyName
             );
 
             // Mapping
-            viewModel.ConvertedAmount = getExchangeRateResponse.ConvertedAmount;
-            viewModel.ExchangeRate = getExchangeRateResponse.ExchangeRate;
+            viewModel.SourceToTargetRate = getExchangeRateResponse.SourceToTargetRate;
+            viewModel.TargetToSourceRate = getExchangeRateResponse.TargetToSourceRate;
 
             return View(viewModel);
+        }
+
+        // Define a request model for binding
+        public class ConversionRateRequest
+        {
+            public string SourceCurrencyName { get; set; }
+            public string TargetCurrencyName { get; set; }
+            public DateTime Date { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetConversionRates([FromBody] ConversionRateRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request.");
+            }
+
+            var getExchangeRateResponse = await _currencyExchangeService.GetExchangeRateAsync(
+                request.Date,
+                request.SourceCurrencyName,
+                request.TargetCurrencyName
+            );
+
+            return Json(getExchangeRateResponse);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

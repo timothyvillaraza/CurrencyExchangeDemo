@@ -1,0 +1,129 @@
+﻿.currency-exchange-form .title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.currency-exchange-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.col {
+    flex: 1;
+    text-align: center;
+}
+
+.currency-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.currency-label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.currency-dropdown,
+.amount-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 40px;
+    box-sizing: border-box;
+    appearance: none;
+}
+
+.conversion-arrow {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.date-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.date-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.date-picker {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submit-section {
+    text-align: center;
+}
+
+.convert-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .convert-button:hover {
+        background-color: #0056b3;
+    }
+
+h3 {
+    text-align: center;
+    color: #333;
+}
+
+p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.rate-status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.rate-status.fetching {
+    color: #007bff;
+}
+
+.rate-status.error {
+    color: #d9534f;
+}
+
+.conversion-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0;
+    text-align: center;
+}
