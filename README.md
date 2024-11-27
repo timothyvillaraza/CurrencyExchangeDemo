@@ -41,7 +41,7 @@ The first request to fetch exchange rates may take longer to complete. Subsequen
 3. **Run the Application**:  
    Use the following command to run the application:
    
-   In <root>/CurrencyExchangeDemo (Folder containing CurrencyExchangeDemo.csproj)
+   In `<root>/CurrencyExchangeDemo` (Folder containing CurrencyExchangeDemo.csproj)
 
    ```bash
    dotnet run
