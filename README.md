@@ -15,8 +15,14 @@ You can access the application deployed on Azure by following URL:
 This application utilizes the following third-party API for fetching exchange rate data:  
 [Currency Exchange API](https://github.com/fawazahmed0/exchange-api)
 
-### **Important Note**
-The first request to fetch exchange rates may take longer to complete. Subsequent requests are significantly faster. This behavior is expected and does not indicate an issue. 
+### **Important Notes**
+1. **Initial Request Performance**:
+   - The first request to fetch exchange rates may take longer to complete.
+   - Subsequent requests will be significantly faster. This behavior is expected and does not indicate an issue.
+
+2. **Date Range Limitation**:
+   - The third-party Currency Exchange API supports only a limited date range of slightly less than one year.
+   - Requests outside this range will display an error message: **"Failed to fetch rates."**
 
 ---
 
@@ -27,7 +33,7 @@ The first request to fetch exchange rates may take longer to complete. Subsequen
 - **Azure**: Hosting platform for the deployed application.
 
 ---
-
+a
 ## How to Run Locally
 
 1. **Clone the Repository**:  
