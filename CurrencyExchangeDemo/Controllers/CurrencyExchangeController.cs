@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using CurrencyExchangeDemo.Controllers.Requests;
 using CurrencyExchangeDemo.Models;
 using CurrencyExchangeDemo.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -59,20 +60,19 @@ namespace CurrencyExchangeDemo.Controllers
             return View(viewModel);
         }
 
-        // Define a request model for binding
-        public class ConversionRateRequest
-        {
-            public string SourceCurrencyName { get; set; }
-            public string TargetCurrencyName { get; set; }
-            public DateTime Date { get; set; }
-        }
-
+        // Used in request made by the UI
         [HttpPost]
         public async Task<IActionResult> GetConversionRates([FromBody] ConversionRateRequest request)
         {
             if (request == null)
             {
                 return BadRequest("Invalid request.");
+            }
+
+            // Request Validation
+            if (request.Date > DateTime.Now)
+            {
+                return BadRequest("Date cannot be in the future.");
             }
 
             var getExchangeRateResponse = await _currencyExchangeService.GetExchangeRateAsync(

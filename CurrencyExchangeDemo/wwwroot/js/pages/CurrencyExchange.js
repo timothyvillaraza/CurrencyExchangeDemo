@@ -1,4 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
+    // Element References
     const sourceCurrencyDropdown = document.getElementById('source-currency-name');
     const targetCurrencyDropdown = document.getElementById('target-currency-name');
     const sourceCurrencyAmountInput = document.getElementById('source-currency-amount');
@@ -7,6 +8,7 @@
     const sourceToTargetRateLabel = document.getElementById('source-to-target-rate');
     const targetToSourceRateLabel = document.getElementById('target-to-source-rate');
 
+    // Source of truth rates: Parsed from UI
     let sourceToTargetRate = parseFloat(document.getElementById('source-to-target-rate').textContent.split(': ')[1]) || 1.00;
     let targetToSourceRate = parseFloat(document.getElementById('target-to-source-rate').textContent.split(': ')[1]) || 1.00;
 
@@ -29,7 +31,6 @@
     sourceCurrencyAmountInput.addEventListener('input', () => {
         const sourceAmount = parseFloat(sourceCurrencyAmountInput.value) || 0;
         targetCurrencyAmountInput.value = (sourceAmount * sourceToTargetRate).toFixed(2);
-        console.log(sourceToTargetRate);
     });
 
     // Recalculate source amount when target amount is changed
@@ -45,15 +46,23 @@
         const date = dateInput.value;
         const rateStatus = document.getElementById('rate-status');
 
+        // API Call only happens when currencies and date are populated
         if (!sourceCurrencyName || !targetCurrencyName || !date) {
-            console.log("Invalid input for conversion rates request.");
+            return;
+        }
+
+        // Validate date isn't in future
+        const selectedDate = new Date(date);
+        const today = new Date();
+
+        if(selectedDate > today)
+        {
+            updateStatusMessage(rateStatus, "Date cannot be in the future.", 'error');
             return;
         }
 
         // Show "Fetching rates..." message
-        rateStatus.textContent = "Retrieving exchange rates... This may take a moment if it's the first request.";
-        rateStatus.classList.add('fetching');
-        rateStatus.classList.remove('error');
+        updateStatusMessage(rateStatus, "Retrieving exchange rates... This may take a moment if it's the first request.", 'fetching');
 
         try {
             const response = await fetch('/CurrencyExchange/GetConversionRates', {
@@ -73,11 +82,6 @@
                 sourceToTargetRate = data.sourceToTargetRate || 1.00;
                 targetToSourceRate = data.targetToSourceRate || 1.00;
 
-                console.log('Updated Conversion Rates:', {
-                    sourceToTargetRate,
-                    targetToSourceRate
-                });
-
                 // Update Input Fields
                 if (triggeredBy === 'source' || triggeredBy === 'date') {
                     const targetAmount = parseFloat(targetCurrencyAmountInput.value) || 0;
@@ -93,19 +97,22 @@
                 sourceToTargetRateLabel.textContent = `${sourceCurrencyDropdown.value} To ${targetCurrencyDropdown.value} Rate: ${sourceToTargetRate}`;
                 targetToSourceRateLabel.textContent = `${targetCurrencyDropdown.value} to ${sourceCurrencyDropdown.value} Rate: ${targetToSourceRate}`;
 
-                // Hide the status label
-                rateStatus.textContent = "";
+                // Clear the status label
+                updateStatusMessage(rateStatus, "", '');
             } else {
-                console.log('Failed to fetch conversion rates:', response.statusText);
-                rateStatus.textContent = "Failed to fetch rates";
-                rateStatus.classList.add('error');
-                rateStatus.classList.remove('fetching');
+                updateStatusMessage(rateStatus, "Failed to fetch rates", 'error');
             }
         } catch (error) {
-            console.log('Error fetching conversion rates:', error);
-            rateStatus.textContent = "Failed to fetch rates";
-            rateStatus.classList.add('error');
-            rateStatus.classList.remove('fetching');
+            updateStatusMessage(rateStatus, "Error fetching rates", 'error');
         }
     }
 });
+
+// Utility Functions
+function updateStatusMessage(statusElement, message, statusClass) {
+    statusElement.textContent = message;
+    statusElement.classList.remove('fetching', 'error');
+    if (statusClass) {
+        statusElement.classList.add(statusClass);
+    }
+}

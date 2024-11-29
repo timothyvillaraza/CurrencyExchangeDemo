@@ -15,8 +15,7 @@ namespace CurrencyExchangeDemo.Services.Implementations
             _httpClient = httpClient;
         }
 
-        // TODO: Create service that fetches valid currency selections
-
+        // TODO: Create service that fetches valid currency selections, right now the currency select options are hard coded into the GetExchangeRateResponseModel
         public async Task<GetExchangeRateResponseModel> GetExchangeRateAsync(DateTime date, string sourceCurrencyName, string targetCurrencyName)
         {
             if (sourceCurrencyName.Equals(targetCurrencyName))
