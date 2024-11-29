@@ -52,4 +52,4 @@ a
    ```bash
    dotnet run
 4. **Access Locally**:  
-   The console should generae a link to the localhost and port.
+   The console will generate a link to the localhost and port.
