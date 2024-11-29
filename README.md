@@ -33,7 +33,7 @@ This application utilizes the following third-party API for fetching exchange ra
 - **Azure**: Hosting platform for the deployed application.
 
 ---
-a
+
 ## How to Run Locally
 
 1. **Clone the Repository**:  
