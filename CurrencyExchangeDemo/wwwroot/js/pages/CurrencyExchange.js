@@ -83,7 +83,7 @@
                 targetToSourceRate = data.targetToSourceRate || 1.00;
 
                 // Update Input Fields
-                if (triggeredBy === 'source' || triggeredBy === 'date') {
+                if (triggeredBy === 'source') {
                     const targetAmount = parseFloat(targetCurrencyAmountInput.value) || 0;
                     sourceCurrencyAmountInput.value = (targetAmount * targetToSourceRate).toFixed(2);
                 }
