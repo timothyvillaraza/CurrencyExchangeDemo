@@ -65,7 +65,7 @@
         updateStatusMessage(rateStatus, "Retrieving exchange rates... This may take a moment if it's the first request.", 'fetching');
 
         try {
-            const response = await fetch('/CurrencyExchange/GetConversionRates', {
+            const response = await fetch('/api/CurrencyExchangeApi/GetConversionRates', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
