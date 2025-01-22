@@ -2,8 +2,9 @@
 <link rel="stylesheet" href="~/css/pages/CurrencyExchange.css" />
 
 <form asp-action="CurrencyExchange" method="post" class="currency-exchange-form">
-    <div class="row">
-        <h2 class="title">Currency Exchange Calculator</h2>
+    <h1 class="row title">Currency Exchange Calculator</h1>
+
+    <div class="row currency-input-container">
         <!-- Source Currency Section -->
         <div class="col currency-section">
             <label for="SourceCurrencyName" class="currency-label">Source Currency</label>
@@ -26,19 +27,20 @@
 
     <!-- Date Picker Section -->
     <div class="date-section">
-        <label for="Date" class="date-label">Date:</label>
-        <input asp-for="Date" type="date" class="date-picker" />
+        <label for="Date" class="date-label">Date:</label><input asp-for="Date" type="date" class="date-picker" />
     </div>
 
     <!-- Rate Fetch Status -->
-    <div class="rate-status" id="rate-status"></div>
+    <div class="row">
+        <div class="rate-status" id="rate-status"></div>
+    </div>
 </form>
 
 <div class="conversion-container">
     <h2>Conversions</h2>
     <p id="source-to-target-rate">usd To usd Rate: @Model.SourceToTargetRate</p>
     <p id="target-to-source-rate">usd To usd Rate: @Model.TargetToSourceRate</p>
-    <h4><a href="https://github.com/timothyvillaraza/CurrencyExchangeDemo" target="_blank">Source Code (Private Repo)</a></h4>
+    <h4><a href="https://github.com/timothyvillaraza/CurrencyExchangeDemo" target="_blank">Source Code (GitHub)</a></h4>
 </div>
 
 <!-- Scripts -->
